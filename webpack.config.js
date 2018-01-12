@@ -54,7 +54,15 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
-      }
+      },
+      // 打包引用的静态资源文件
+      {
+        test: /\.(png|jpg|gif|jpeg|svg|woff|ttf)$/,
+        use: [
+          // 指定小于10kb的图片才转为base64编码打包
+          { loader: 'url-loader', options: { limit: 10240 } }
+        ]
+      },
     ]
   },
   //  插件配置
