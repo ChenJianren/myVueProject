@@ -57,11 +57,13 @@ module.exports = {
       }
     ]
   },
+  //  插件配置
   plugins: [
+    // 自动注入打包好的js文件到body里
     new HtmlWebpackPlugin({
-      filename: './src/index.html',
-      template: 'template.html',
-      title: 'hello vue'
+      template: './src/index.html',// 要处理的html
+      filename: 'index.html',// 处理后的html名称
+      inject: 'body',// 自动注入js到什么地方
     })
   ]
 }

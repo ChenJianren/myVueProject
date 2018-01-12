@@ -1,15 +1,22 @@
 <template>
   <div>
-
+      <h1>{{title}}</h1>
   </div>
 </template>
 
 <script>
-  export default {
-    
+export default {
+  data() {
+    return {
+      title: "Hello World"
+    };
   }
+};
 </script>
 
-<style scoped>
-
+<style>
+  h1{
+    font-size: 30px;
+    color: red;
+  }
 </style>
