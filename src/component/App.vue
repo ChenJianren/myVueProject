@@ -1,6 +1,7 @@
 <template>
   <div>
       <h1>{{title}}</h1>
+      <router-view></router-view>
   </div>
 </template>
 
@@ -15,8 +16,8 @@ export default {
 </script>
 
 <style>
-  h1{
-    font-size: 30px;
-    color: red;
-  }
+h1 {
+  font-size: 30px;
+  color: red;
+}
 </style>
