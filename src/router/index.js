@@ -8,6 +8,7 @@ export default {
   routes: [
     { name: "login", path: "/login", component: Login },
     { name: "register", path: "/register", component: Register },
-    { name: "home", path: "/home", component: Home }
+    { name: "home", path: "/home", component: Home },
+    { path: "/", redirect: '/home' }
   ]
 }

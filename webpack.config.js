@@ -32,15 +32,6 @@ module.exports = {
         }]
       },
       {
-        test: /\.(png|jpg|gif)/,
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 50000// 表示限制图片大小
-          }
-        }]
-      },
-      {
         test: /\.js$/,
         exclude: /(node_modules)/, // node_modules下面的.js文件会被排除
         use: {
@@ -57,7 +48,7 @@ module.exports = {
       },
       // 打包引用的静态资源文件
       {
-        test: /\.(png|jpg|gif|jpeg|svg|woff|ttf)$/,
+        test: /\.(png|jpg|gif|jpeg|svg|woff|ttf|ico)$/,
         use: [
           // 指定小于10kb的图片才转为base64编码打包
           { loader: 'url-loader', options: { limit: 10240 } }
