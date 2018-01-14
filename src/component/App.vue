@@ -1,23 +1,16 @@
 <template>
   <div>
-      <!-- <h1>{{title}}</h1> -->
       <router-view></router-view>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      title: "Hello World"
-    };
-  }
-};
+export default {};
 </script>
 
-<style>
-h1 {
-  font-size: 30px;
-  color: red;
+<style scoped>
+div {
+  height: 100%;
+  background-color: #0094ff;
 }
 </style>

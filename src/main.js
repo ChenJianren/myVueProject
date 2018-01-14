@@ -15,7 +15,7 @@ import routerConfig from "./router/index.js"
 
 // 因为它不是Vue插件，所以手动加入到Vue原型上
 import axios from "axios"
-axios.defaults.baseURL = "http://157.122.54.189:9095";
+axios.defaults.baseURL = "http://111.230.36.92";
 Vue.prototype.$http = axios;
 import api from "./js/api-config.js"
 Vue.prototype.$api = api;

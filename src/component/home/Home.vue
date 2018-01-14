@@ -10,9 +10,9 @@ export default {
   data() {
     return {
       list: [
-        { img: "src/image/1.jpg" },
-        { img: "src/image/2.jpg" },
-        { img: "src/image/3.jpg" }
+        { img: "../../image/1.jpg" },
+        { img: "../../image/2.jpg" },
+        { img: "../../image/3.jpg" }
       ]
     };
   }
