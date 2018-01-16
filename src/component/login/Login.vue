@@ -50,9 +50,14 @@ export default {
     login() {
       this.$http.post(this.$api.login, this.formLabelAlign).then(res => {
         if (res.data.status == 0) {
-          this.$alert("登录成功，跳回主页").then(() => {
-            this.$router.push("/admin");
+          this.$notify({
+            title: "登录成功",
+            message: "欢迎使用管理系统",
+            type: "success",
+            duration: 2000
           });
+          let nextPath = this.$route.query.nextPath;
+          this.$router.push({ path: nextPath ? nextPath : "admin" });
         } else {
           this.$alert(res.data.message);
         }

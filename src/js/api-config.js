@@ -1,5 +1,5 @@
 // 导出域名
-export const domain = 'http://111.230.36.92';
+export const domain = 'http://111.230.36.92:8888';
 
 // 默认导出整个接口配置
 export default {

@@ -15,16 +15,20 @@ import routerConfig from "./router/index.js"
 
 // 因为它不是Vue插件，所以手动加入到Vue原型上
 import axios from "axios"
-axios.defaults.baseURL = "http://111.230.36.92";
+// 我们是跨域请求的接口, 默认不会携带cookie等信息, 后端需要这些信息来判断登陆状态, 所以要设为true
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "http://111.230.36.92:8888";
 Vue.prototype.$http = axios;
 import api from "./js/api-config.js"
 Vue.prototype.$api = api;
-
+var router = new VueRouter(routerConfig);
+import beforeEach from "./router/beforeEach.js";
+router.beforeEach(beforeEach);
 new Vue({
   el: "#app",
   render(createElement) {
     return createElement(App);
   },
-  router: new VueRouter(routerConfig)
+  router
 })
 

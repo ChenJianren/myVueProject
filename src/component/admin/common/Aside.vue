@@ -56,6 +56,7 @@ export default {
   .logo {
     img {
       width: 100%;
+      height: 52px;
       display: block;
     }
   }
