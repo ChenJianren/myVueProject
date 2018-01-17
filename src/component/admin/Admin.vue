@@ -21,7 +21,8 @@ export default {
 
 <style scoped lang="less">
 .el-aside {
-  background-color: #d3dce6;
+  height: 100%;
+  background-color: #fff;
   color: #333;
 }
 

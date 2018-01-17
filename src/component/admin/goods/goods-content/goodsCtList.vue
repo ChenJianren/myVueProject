@@ -8,21 +8,21 @@
         </el-breadcrumb>
       </div>
       <div class="btnList">
-         <el-button plain size="mini" icon="el-icon-plus">新增</el-button>
-         <el-button plain size="mini" icon="el-icon-check" @change="checkAll">全选</el-button>
-         <el-button plain size="mini" icon="el-icon-delete">删除</el-button>
+         <el-button plain size="mini" icon="el-icon-plus" @click="add">新增</el-button>
+         <el-button plain size="mini" icon="el-icon-check" @click="checkAll">全选</el-button>
+         <el-button plain size="mini" icon="el-icon-delete" @click="selectiondel">删除</el-button>
          <el-input size="mini" placeholder="请输入内容" suffix-icon="el-icon-search" v-model="getListQuery.searchvalue" @blur="getGoodsList()"></el-input>
       </div>
-      <el-table :data="tableData" border ref="multipleTable" tooltip-effect="dark" style="width: 100%" header-cell-style="backgroundColor:#eef1f6;border-color:#dfe6ec">
+      <el-table :data="tableData" border ref="multipleTable" tooltip-effect="dark" style="width: 100%" header-cell-style="backgroundColor:#eef1f6;border-color:#dfe6ec" @selection-change="selectionchange">
         <el-table-column type="selection" width="35"> </el-table-column>
         <el-table-column label="标题" prop="title">
           
           <template slot-scope="scope">
             <el-tooltip class="item" effect="dark" placement="right">
               <div slot="content">
-                <img style="width:200px" :src="'http://111.230.36.92:8888' + scope.row.img_url" alt="图片预览">
+                <img style="width:200px" :src="'http://111.230.36.92:8888/' + scope.row.img_url" alt="图片预览">
               </div>
-              <router-link :to="{name:'goodsCgEdit',params:{id:scope.row.id}}">{{scope.row.title}}</router-link>
+              <router-link :to="{name:'goodsCtEdit',params:{id:scope.row.id}}">{{scope.row.title}}</router-link>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -74,12 +74,49 @@ export default {
     };
   },
   methods: {
-    checkAll() {},
+    add() {
+      this.$router.push({ name: "goodsCtEdit" });
+    },
+    selectionchange(selection) {
+      this.selection = selection;
+    },
+    del() {
+      let ids = this.selection.map(val => val.id).join(",");
+      this.$http.get(this.$api.gsDel + ids).then(res => {
+        if (res.data.status == 0) {
+          this.getGoodsList();
+          this.selection = [];
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+        }
+      });
+    },
+    selectiondel() {
+      this.$confirm("此操作将永久删除该商品, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.del();
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    checkAll() {
+      document.querySelector(".el-checkbox__inner").click();
+    },
     getGoodsList() {
       this.$http
         .get(this.$api.gsList, { params: this.getListQuery })
         .then(res => {
-          console.log(res.data);
+          console.log(res.data.message);
           this.tableData = res.data.message;
           this.totalcount = res.data.totalcount;
         });

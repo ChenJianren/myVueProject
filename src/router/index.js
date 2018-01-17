@@ -11,7 +11,7 @@ let goodsChilden = [
   { name: "goodsCtList", path: "goods/content/goodsCtList", component: GoodsCtList },
   { name: "goodsCtEdit", path: "goods/content/goodsCtEdit/:id", component: GoodsCtEdit },
   { name: "goodsCgList", path: "goods/category/goodsCgList", component: GoodsCgList },
-  { name: "goodsCgEdit", path: "goods/category/goodsCtEdit/:id", component: GoodsCgEdit },
+  { name: "goodsCgEdit", path: "goods/category/goodsCgEdit/:id", component: GoodsCgEdit },
 ];
 // 该文件对外导出路由配置
 export default {
