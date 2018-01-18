@@ -1,7 +1,7 @@
 <template>
   <div class="edit">
     <el-form ref="ruleForm" :model="form"  :rules="rules" label-width="80px">
-      <el-form-item label="内容标题" prop="title"><span>123{{form.title}}</span>
+      <el-form-item label="内容标题" prop="title">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="副标题" prop="sub_title">
@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      id: null,
+      id: this.$route.params.id,
       rules: {
         title: [
           { required: true, message: "请输入标题", trigger: "blur" },
@@ -107,23 +107,7 @@ export default {
         zhaiyao: [{ required: true, message: "请输入摘要", trigger: "blur" }],
         content: [{ required: true, message: "请输入描述信息", trigger: "blur" }]
       },
-      form: {
-        title: "qwe",
-        sub_title: "",
-        category_id: "",
-        goods_no: "",
-        stock_quantity: 0,
-        market_price: 0,
-        sell_price: 0,
-        status: false,
-        is_slide: false,
-        is_top: false,
-        is_hot: false,
-        zhaiyao: "",
-        content: "",
-        imgList: [],
-        fileList: []
-      },
+      form: {},
       categoryList: []
     };
   },
@@ -167,21 +151,27 @@ export default {
       });
     },
     add() {
-      this.$http.post(this.$api.gsAdd, this.form).then(res => {
-        if (res.data.status == 0) {
-          this.$alert("马上跳回商品列表页", "新增成功", {
-            confirmButtonText: "确定",
-            callback: action => {
-              this.$router.push({ name: "goodsCtList" });
-            }
-          });
-        }
-      });
+      this.$http
+        .post(this.$api.gsAdd, this.form)
+        .then(res => {
+          console.log(res);
+          if (res.data.status == 0) {
+            this.$alert("马上跳回商品列表页", "新增成功", {
+              confirmButtonText: "确定",
+              callback: action => {
+                this.$router.push({ name: "goodsCtList" });
+              }
+            });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          if (this.id == "undefined") {
+          if (this.id == null) {
             this.add();
           } else {
             this.edit();
@@ -195,17 +185,13 @@ export default {
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
     }
   },
   created() {
-    this.getCategory();
-    if (this.id != "undefined") {
-      this.id = this.$route.params.id;
+    if (this.id != null) {
       this.getContentByID();
     }
+    this.getCategory();
   }
 };
 </script>
